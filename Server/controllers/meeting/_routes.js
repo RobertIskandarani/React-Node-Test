@@ -4,6 +4,6 @@ const auth = require('../../middelwares/auth');
 
 const router = express.Router();
 
-router.get('/', meeting.index);
+router.get('/', auth, meeting.index);
 
 module.exports = router;

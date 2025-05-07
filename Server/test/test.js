@@ -3,8 +3,12 @@ var chaiHttp = require('chai-http');
 var app = require('../index');
 var should = chai.should();
 var Meeting = require('../model/schema/meeting');
+var jwt = require('jsonwebtoken');
 
 chai.use(chaiHttp);
+
+// Create a test token
+const testToken = jwt.sign({ id: 'test-user-id' }, 'secret_key');
 
 describe('Meeting API', function () {
   //Before each test we empty the database
@@ -21,6 +25,7 @@ describe('Meeting API', function () {
       chai
         .request(app)
         .get('/api/meeting')
+        .set('Authorization', testToken)
         .end(function (err, res) {
           res.should.have.status(200);
           res.body.meetings.should.be.a('array');
