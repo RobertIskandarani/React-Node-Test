@@ -34,24 +34,30 @@ describe('Meeting API', function () {
     });
   });
 
-  //   describe('/POST Products', function () {
-  //     it('Insert new Product', function (done) {
-  //       var Product = {
-  //         title: 'Jack Ma',
-  //         author: 'Chen Wei',
-  //         category: 'Biography',
-  //       };
-  //       chai
-  //         .request(app)
-  //         .post('/Products')
-  //         .send(Product)
-  //         .end(function (err, res) {
-  //           res.should.have.status(200);
-  //           res.body.should.be.a('object');
-  //           done();
-  //         });
-  //     });
-  //   });
+  describe('/POST Meetings', function () {
+    xit('Insert new Meeting', function (done) {
+      var meeting = {
+        agenda: 'Project Kickoff Meeting',
+        location: 'Conference Room A',
+        dateTime: new Date().toISOString(),
+        notes: 'Initial project planning and team introduction',
+        related: 'Project X',
+        createBy: '507f1f77bcf86cd799439011',
+        attendes: [],
+        attendesLead: [],
+      };
+      chai
+        .request(app)
+        .post('/api/meeting')
+        .set('Authorization', testToken)
+        .send(meeting)
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+  });
   //   describe('/GET/:id Products', function () {
   //     it('Get Product by id', function (done) {
   //       Product.create({
