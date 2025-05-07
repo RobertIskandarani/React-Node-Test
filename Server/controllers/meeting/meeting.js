@@ -6,7 +6,7 @@ const add = async (req, res) => {};
 const index = async (req, res) => {
   try {
     const meetings = await Meetings.find({ deleted: false });
-    res.status(200).json({ meetings });
+    res.status(200).json(meetings);
   } catch (error) {
     res.status(500).json({ error });
   }
