@@ -1,5 +1,9 @@
 const express = require('express');
+const meeting = require('./meeting');
+const auth = require('../../middelwares/auth');
 
 const router = express.Router();
 
-module.exports = router
+router.get('/', meeting.index);
+
+module.exports = router;

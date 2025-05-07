@@ -17,13 +17,13 @@ describe('Meeting API', function () {
   });
 
   describe('/GET Meetings', function () {
-    xit('Getting all Meetings', function (done) {
+    it('Getting all Meetings', function (done) {
       chai
         .request(app)
-        .get('/Meetings')
+        .get('/api/meeting')
         .end(function (err, res) {
           res.should.have.status(200);
-          res.body.should.be.a('array');
+          res.body.meetings.should.be.a('array');
           done();
         });
     });
