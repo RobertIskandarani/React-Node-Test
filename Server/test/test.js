@@ -35,7 +35,7 @@ describe('Meeting API', function () {
   });
 
   describe('/POST Meetings', function () {
-    xit('Insert new Meeting', function (done) {
+    it('Insert new Meeting', function (done) {
       var meeting = {
         agenda: 'Project Kickoff Meeting',
         location: 'Conference Room A',
