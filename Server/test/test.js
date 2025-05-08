@@ -147,7 +147,7 @@ describe('Meeting API', function () {
   });
 
   describe('/GET Meeting View', function () {
-    xit('Get single meeting details', function (done) {
+    it('Get single meeting details', function (done) {
       // First create a meeting to view
       Meeting.create({
         agenda: 'Test Meeting View',
