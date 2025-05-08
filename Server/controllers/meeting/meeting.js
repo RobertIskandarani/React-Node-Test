@@ -41,7 +41,18 @@ const index = async (req, res) => {
 
 const view = async (req, res) => {};
 
-const deleteData = async (req, res) => {};
+const deleteData = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const meeting = await Meetings.findByIdAndUpdate(id, { deleted: true });
+    if (!meeting) {
+      return res.status(404).json({ message: 'Meeting not found' });
+    }
+    res.status(200).json({ message: 'Meeting deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
 
 const deleteMany = async (req, res) => {};
 

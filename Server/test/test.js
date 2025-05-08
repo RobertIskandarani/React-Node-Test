@@ -60,7 +60,7 @@ describe('Meeting API', function () {
   });
 
   describe('/DELETE/:id Meeting', function () {
-    xit('Delete Meeting by id', function (done) {
+    it('Delete Meeting by id', function (done) {
       Meeting.create({
         agenda: 'Test Meeting',
         attendes: [],
@@ -69,20 +69,24 @@ describe('Meeting API', function () {
         related: 'Contact',
         dateTime: new Date(),
         notes: 'Test Notes',
-        createBy: '65f1a2b3c4d5e6f7g8h9i0j1',
-      }).then(function (meeting) {
-        chai
-          .request(app)
-          .delete('/api/meeting/' + meeting._id)
-          .set('Authorization', testToken)
-          .end(function (err, res) {
-            res.should.have.status(200);
-            res.body.should.have
-              .property('message')
-              .eql('Meeting deleted Successfully');
-            done();
-          });
-      });
+        createBy: '507f1f77bcf86cd799439011',
+      })
+        .then(function (meeting) {
+          return chai
+            .request(app)
+            .delete('/api/meeting/' + meeting._id)
+            .set('Authorization', testToken);
+        })
+        .then(function (res) {
+          res.should.have.status(200);
+          res.body.should.have
+            .property('message')
+            .eql('Meeting deleted successfully');
+          done();
+        })
+        .catch(function (err) {
+          done(err);
+        });
     });
   });
 });
