@@ -181,7 +181,7 @@ describe('Meeting API', function () {
         });
     });
 
-    xit('Should return 404 for non-existent meeting', function (done) {
+    it('Should return 404 for non-existent meeting', function (done) {
       chai
         .request(app)
         .get('/api/meeting/view/507f1f77bcf86cd799439011')

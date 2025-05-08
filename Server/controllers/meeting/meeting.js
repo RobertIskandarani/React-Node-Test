@@ -43,7 +43,9 @@ const view = async (req, res) => {
   try {
     const { id } = req.params;
     const meeting = await Meetings.findById(id);
-    
+    if (!meeting) {
+      return res.status(404).json({ message: 'Meeting not found' });
+    }
     res.status(200).json(meeting);
   } catch (error) {
     res.status(500).json({ error });
