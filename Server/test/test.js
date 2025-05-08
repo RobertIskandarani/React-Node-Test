@@ -58,84 +58,31 @@ describe('Meeting API', function () {
         });
     });
   });
-  //   describe('/GET/:id Products', function () {
-  //     it('Get Product by id', function (done) {
-  //       Product.create({
-  //         title: 'Jack Ma',
-  //         author: 'Chen Wei',
-  //         category: 'Biography',
-  //       }).then(function (Product) {
-  //         chai
-  //           .request(app)
-  //           .get('/Products/' + Product.id)
-  //           .end(function (err, res) {
-  //             res.should.have.status(200);
-  //             res.body.should.be.a('object');
-  //             done();
-  //           });
-  //       });
-  //     });
-  //     it('Get Product by not existed id', function (done) {
-  //       chai
-  //         .request(app)
-  //         .get('/Products/100')
-  //         .end(function (err, res) {
-  //           res.should.have.status(400);
-  //           res.body.should.equal('Product not found');
-  //           done();
-  //         });
-  //     });
-  //     it('Get Product by invalid id', function (done) {
-  //       chai
-  //         .request(app)
-  //         .get('/Products/abc')
-  //         .end(function (err, res) {
-  //           res.should.have.status(400);
-  //           res.body.should.equal('Invalid ID supplied');
-  //           done();
-  //         });
-  //     });
-  //   });
-  //   describe('/PUT/:id Products', function () {
-  //     it('Update Product by id', function (done) {
-  //       Product.create({
-  //         title: 'Jack Ma',
-  //         author: 'Chen Wei',
-  //         category: 'Biography',
-  //       }).then(function (Product) {
-  //         var ProductEdit = {
-  //           title: 'Amor Fati',
-  //           author: 'Rando Kim',
-  //           category: 'Non Fiction',
-  //         };
-  //         chai
-  //           .request(app)
-  //           .put('/Products/' + Product.id)
-  //           .send(ProductEdit)
-  //           .end(function (err, res) {
-  //             res.should.have.status(200);
-  //             res.body.should.be.a('array');
-  //             done();
-  //           });
-  //       });
-  //     });
-  //   });
-  //   describe('/DELETE/:id Products', function () {
-  //     it('Delete Product by id', function (done) {
-  //       Product.create({
-  //         title: 'Jack Ma',
-  //         author: 'Chen Wei',
-  //         category: 'Biography',
-  //       }).then(function (Product) {
-  //         chai
-  //           .request(app)
-  //           .delete('/Products/' + Product.id)
-  //           .end(function (err, res) {
-  //             res.should.have.status(200);
-  //             res.body.should.equal(1);
-  //             done();
-  //           });
-  //       });
-  //     });
-  //   });
+
+  describe('/DELETE/:id Meeting', function () {
+    xit('Delete Meeting by id', function (done) {
+      Meeting.create({
+        agenda: 'Test Meeting',
+        attendes: [],
+        attendesLead: [],
+        location: 'Test Location',
+        related: 'Contact',
+        dateTime: new Date(),
+        notes: 'Test Notes',
+        createBy: '65f1a2b3c4d5e6f7g8h9i0j1',
+      }).then(function (meeting) {
+        chai
+          .request(app)
+          .delete('/api/meeting/' + meeting._id)
+          .set('Authorization', testToken)
+          .end(function (err, res) {
+            res.should.have.status(200);
+            res.body.should.have
+              .property('message')
+              .eql('Meeting deleted Successfully');
+            done();
+          });
+      });
+    });
+  });
 });
