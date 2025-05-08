@@ -145,4 +145,53 @@ describe('Meeting API', function () {
         });
     });
   });
+
+  describe('/GET Meeting View', function () {
+    xit('Get single meeting details', function (done) {
+      // First create a meeting to view
+      Meeting.create({
+        agenda: 'Test Meeting View',
+        attendes: [],
+        attendesLead: [],
+        location: 'Test Location',
+        related: 'Contact',
+        dateTime: new Date(),
+        notes: 'Test Notes',
+        createBy: '507f1f77bcf86cd799439011',
+      })
+        .then(function (meeting) {
+          return chai
+            .request(app)
+            .get('/api/meeting/view/' + meeting._id)
+            .set('Authorization', testToken);
+        })
+        .then(function (res) {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          res.body.should.have.property('agenda').eql('Test Meeting View');
+          res.body.should.have.property('location').eql('Test Location');
+          res.body.should.have.property('related').eql('Contact');
+          res.body.should.have.property('notes').eql('Test Notes');
+          res.body.should.have.property('createBy');
+          res.body.should.have.property('dateTime');
+          done();
+        })
+        .catch(function (err) {
+          done(err);
+        });
+    });
+
+    xit('Should return 404 for non-existent meeting', function (done) {
+      chai
+        .request(app)
+        .get('/api/meeting/view/507f1f77bcf86cd799439011')
+        .set('Authorization', testToken)
+        .end(function (err, res) {
+          res.should.have.status(404);
+          res.body.should.be.an('object');
+          res.body.should.have.property('message');
+          done();
+        });
+    });
+  });
 });
