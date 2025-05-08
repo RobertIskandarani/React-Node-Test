@@ -74,7 +74,7 @@ describe('Meeting API', function () {
         .then(function (meeting) {
           return chai
             .request(app)
-            .delete('/api/meeting/' + meeting._id)
+            .delete('/api/meeting/delete/' + meeting._id)
             .set('Authorization', testToken);
         })
         .then(function (res) {
