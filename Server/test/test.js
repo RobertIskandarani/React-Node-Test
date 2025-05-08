@@ -91,7 +91,7 @@ describe('Meeting API', function () {
   });
 
   describe('/DELETE Multiple Meetings', function () {
-    xit('Delete multiple meetings', function (done) {
+    it('Delete multiple meetings', function (done) {
       // Create first meeting
       Meeting.create({
         agenda: 'Test Meeting 1',
@@ -122,7 +122,7 @@ describe('Meeting API', function () {
           const meetingIds = meetings.map((meeting) => meeting._id);
           return chai
             .request(app)
-            .delete('/api/meeting/deleteMany')
+            .post('/api/meeting/deleteMany')
             .set('Authorization', testToken)
             .send({ meetingIds });
         })
@@ -130,7 +130,14 @@ describe('Meeting API', function () {
           res.should.have.status(200);
           res.body.should.have.property('message').eql('done');
           res.body.should.have.property('updatedMeetings');
-          res.body.updatedMeetings.should.be.an('array');
+          res.body.updatedMeetings.should.be.an('object');
+          res.body.updatedMeetings.should.have
+            .property('acknowledged')
+            .eql(true);
+          res.body.updatedMeetings.should.have.property('modifiedCount').eql(2);
+          res.body.updatedMeetings.should.have.property('upsertedId').eql(null);
+          res.body.updatedMeetings.should.have.property('upsertedCount').eql(0);
+          res.body.updatedMeetings.should.have.property('matchedCount').eql(2);
           done();
         })
         .catch(function (err) {
