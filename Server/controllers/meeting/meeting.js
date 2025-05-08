@@ -56,7 +56,8 @@ const deleteData = async (req, res) => {
 
 const deleteMany = async (req, res) => {
   try {
-    const { meetingIds } = req.body; // Assuming req.body is an array of meeting IDs
+    const meetingIds = req.body; // Assuming req.body is an array of meeting IDs
+
     const updatedMeetings = await Meetings.updateMany(
       { _id: { $in: meetingIds } },
       { $set: { deleted: true } }

@@ -124,7 +124,7 @@ describe('Meeting API', function () {
             .request(app)
             .post('/api/meeting/deleteMany')
             .set('Authorization', testToken)
-            .send({ meetingIds });
+            .send(meetingIds);
         })
         .then(function (res) {
           res.should.have.status(200);
